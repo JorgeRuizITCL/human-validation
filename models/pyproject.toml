@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "models"
+version = "0.1.0"
+description = ""
+authors = ["Jorge Ruiz <jorge.ruiz@itcl.es>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+tensorflow = "2.10"
+tensorflow-io-gcs-filesystem = "0.31"
+tf2onnx = ">=1.14"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
