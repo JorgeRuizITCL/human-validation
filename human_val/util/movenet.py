@@ -95,11 +95,11 @@ def decode_movenet(
     """Transforms the output of a 1,1,17,3 movenet output tensor
 
     Args:
-        output (np.ndarray): _description_
-        threshold (float): _description_
+        output (np.ndarray): Network output
+        threshold (float): Min threshold to consider a joint visible.
 
     Returns:
-        list[Joint]: _description_
+        list[Joint]: List of joints
     """
     assert output.shape == (1, 1, 17, 3)
     joints: List[Joint] = []
