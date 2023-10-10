@@ -1,0 +1,14 @@
+FROM nvcr.io/nvidia/l4t-ml:r35.1.0-py3 as base
+
+# Update PIP to the latest version (compatible with the img)
+RUN python3 -m pip install --upgrade pip
+
+
+COPY . /lib/humanval
+
+
+RUN python3 -m pip install /lib/humanval
+
+RUN wget --content-disposition https://nvidia.box.com/shared/static/mvdcltm9ewdy2d5nurkiqorofz1s53ww.whl
+
+RUN python3 -m pip install onnxruntime_gpu-1.15.1-cp38-cp38-linux_aarch64.whl

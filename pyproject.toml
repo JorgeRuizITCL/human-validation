@@ -12,10 +12,10 @@ exclude = ["human_val/**/tests*"]
 
 [tool.poetry.dependencies]
 python = ">=3.6,<3.9"
-numpy = "1.18"
-onnxruntime-gpu = {version = "1.9"}
+numpy = ">=1.18"
+#onnxruntime-gpu = {version = "1.9"}
 pillow = ">=8.0"
-attrs = "22.2"
+attrs = ">=22.2"
 
 #onnxruntime-gpu-jetson = {url="https://nvidia.box.com/shared/static/w3dezb26wog78rwm2yf2yhh578r5l144.whl"}
 
