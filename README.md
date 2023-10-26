@@ -69,6 +69,19 @@ print(is_human)
 print(joints)
 ```
 
+### Run Example
+
+> [!IMPORTANT]
+> The following code requires the package to be installed with dev-dependencies in the virtual environment (`poetry install -G dev`).
+
+```bash
+poetry run python scripts/validate.py | poetry run python scripts/visualize.py
+```
+
+Example output:
+
+![Labeled image](./assets/labeled_img.png)
+
 ### Parameters
 
 - Model: Movenet Thunder (higher score) & Movenet Lightning (fastest)
