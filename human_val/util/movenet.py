@@ -109,13 +109,11 @@ def decode_movenet(
 
     w, h = img_res_wh
 
-    relation = w / h if w > h else h / w
     relation_x = 1 if h < w else h / w
     relation_y = 1 if w < h else w / h
 
     padding_percent_wh = get_pad_proportions(img_res_wh)
 
-    from sys import stderr
 
     pad_x = padding_percent_wh[0]
     pad_y = padding_percent_wh[1]
