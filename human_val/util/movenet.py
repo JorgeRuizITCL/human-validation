@@ -1,6 +1,8 @@
-from typing import List, cast
+from typing import List, Tuple, cast
 
 import numpy as np
+
+from human_val.util.img import get_pad_proportions
 
 from .joint import Joint
 
@@ -90,7 +92,7 @@ MOVENET_CONNECTIONS = [
 
 
 def decode_movenet(
-    output: np.ndarray, threshold: float
+    output: np.ndarray, threshold: float, img_res_wh: Tuple[int, int]
 ) -> List[Joint]:
     """Transforms the output of a 1,1,17,3 movenet output tensor
 
@@ -102,16 +104,37 @@ def decode_movenet(
         list[Joint]: List of joints
     """
     assert output.shape == (1, 1, 17, 3)
+
     joints: List[Joint] = []
-    for i in range(output.shape[0]): # For whatever this dimension is
-        for j in range(output.shape[2]): #for each joint in img
+
+    w, h = img_res_wh
+
+    relation = w / h if w > h else h / w
+    relation_x = 1 if h < w else h / w
+    relation_y = 1 if w < h else w / h
+
+    padding_percent_wh = get_pad_proportions(img_res_wh)
+
+    from sys import stderr
+
+    pad_x = padding_percent_wh[0]
+    pad_y = padding_percent_wh[1]
+    for i in range(output.shape[0]):  # For whatever this dimension is
+        for j in range(output.shape[2]):  # for each joint in img
             confidence = output[i, 0, j, 2]
+            y, x = output[i, 0, j, :2]
+
+            x = max(0, (x - pad_x / 2) * relation_x)
+            y = max(0, (y - pad_y / 2) * relation_y)
+
             joints.append(
                 Joint(
                     id=j,
+                    x=float(x),
+                    y=float(y),
                     label=_ids[j],
-                    confidence=confidence,
-                    threshold=threshold,
+                    confidence=float(confidence),
+                    threshold=float(threshold),
                 )
             )
 

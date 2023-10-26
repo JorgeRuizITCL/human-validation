@@ -1,6 +1,6 @@
-
 from typing import Tuple
 
+import cv2
 import numpy as np
 from PIL import Image
 
@@ -18,8 +18,17 @@ def to_square(pil_img: Image.Image, background_color: Tuple[int, int, int]):
         result.paste(pil_img, ((height - width) // 2, 0))
         return result
 
+
 def resize_pad_crop(crop: np.ndarray, resolution: Tuple[int, int]) -> np.ndarray:
     base_img = Image.fromarray(crop)
-    squared_img = to_square(base_img, (0,0,0))
-    resized_img = squared_img.resize(resolution)    
+    squared_img = to_square(base_img, (0, 0, 0))
+    resized_img = squared_img.resize(resolution)
     return np.array(resized_img)
+
+
+def get_pad_proportions(res_wh: Tuple[int, int]) -> Tuple[float, float]:
+    w, h = res_wh
+    if w > h:
+        return (0, (w - h) / 2 / h)
+    else:
+        return ((h - w) / 2 / w, 0)

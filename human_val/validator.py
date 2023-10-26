@@ -91,6 +91,8 @@ class Validator:
         Returns:
             Tuple[List[Joint], bool]: List of joints and if there is a human in the img.
         """
+        img_res_wh: Tuple[int, int] = img_rgb_u8.shape[:2][::-1]  # type: ignore
+
         reshaped_img = resize_pad_crop(img_rgb_u8, self._input_shape[-3:-1])
 
         reshaped_img = np.expand_dims(reshaped_img, 0)  # add batch dim
@@ -99,8 +101,8 @@ class Validator:
 
         res = self._sess.run(None, {self._input_name: norm_img})[0]
 
-        joints = decode_movenet(res, self._conf_thres)
+        joints = decode_movenet(res, self._conf_thres, img_res_wh)
 
         n_vis_joints = sum(int(j.is_visible) for j in joints)
-        print(n_vis_joints)
+
         return joints, n_vis_joints >= min_joints
