@@ -2,7 +2,7 @@ from typing import List, Tuple, cast
 
 import numpy as np
 
-from human_val.util.img import get_pad_proportions
+from human_estimation.util.img import get_pad_proportions
 
 from .joint import Joint
 
@@ -113,7 +113,6 @@ def decode_movenet(
     relation_y = 1 if w < h else w / h
 
     padding_percent_wh = get_pad_proportions(img_res_wh)
-
 
     pad_x = padding_percent_wh[0]
     pad_y = padding_percent_wh[1]

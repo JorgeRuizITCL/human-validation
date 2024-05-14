@@ -7,7 +7,7 @@ import numpy as np
 from attrs import asdict
 from PIL import Image
 
-from human_val import Validator
+from human_estimation import Validator
 
 PARENT = Path(__file__).parent.absolute()
 

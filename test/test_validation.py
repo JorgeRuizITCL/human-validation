@@ -3,7 +3,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-from human_val import Validator
+from human_estimation import Validator
 
 _FILE_PTH = Path(__file__).parent
 SEED = 0

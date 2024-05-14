@@ -5,9 +5,9 @@ import numpy as np
 import onnxruntime as ort
 from PIL import Image
 
-from human_val.util.img import resize_pad_crop
-from human_val.util.joint import Joint
-from human_val.util.movenet import decode_movenet
+from human_estimation.util.img import resize_pad_crop
+from human_estimation.util.joint import Joint
+from human_estimation.util.movenet import decode_movenet
 
 _FILE_PTH = Path(__file__).parent.absolute()
 _LIB_PTH = _FILE_PTH.parent
